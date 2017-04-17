@@ -1,0 +1,28 @@
+1.let $d:=doc("/Users/mariamolgas/SINF_java/Practica6/empresa.xml")
+for $e in $d/BDempresa/departamentos/departmento
+return $e
+
+
+2.let $d:=doc("/Users/mariamolgas/SINF_java/Practica6/empresa.xml")
+for $e in $d/BDempresa/empleados/empleado
+where contains($e/nombre,"Juan")
+return <empleadoG>{data($e/@dni)}  {$e/nombre}</empleadoG>
+
+
+3.let $d:=doc("/Users/mariamolgas/SINF_java/Practica6/empresa.xml")
+for $e in $d/BDempresa/empleados/empleado
+where contains($e/nombre,"Juan")
+return <empleadoG>{data($e/@dni)}  {$e/nombre}</empleadoG>
+
+4.let $d:=doc("/Users/mariamolgas/SINF_java/Practica6/empresa.xml")
+for $e in $d/BDempresa/empleados/empleado
+where contains($e/direccion,"Malaga")
+return <empleadoG>{data($e/@dni)}  {$e/nombre}</empleadoG>
+
+5.let $d:=doc("/Users/mariamolgas/SINF_java/Practica6/empresa.xml")
+for $e in $d/BDempresa/empleados/empleado
+
+for $e in $d/BDempresa/empleados/empleado
+where contains($d/BDempresa/departamentos/departmento[dnombre="Hardware"]/empleados/@ednis,	$e/@dni)
+and $e/sexo="M" and $e/familiares/familiar/sexo="F"
+return <empleadoG>{data($e/@dni)}  {$e/nombre}</empleadoG>

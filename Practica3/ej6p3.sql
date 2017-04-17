@@ -1,0 +1,13 @@
+DROP PROCEDURE IF EXISTS ponerEnMayusculas;
+
+delimiter //
+
+CREATE PROCEDURE ponerEnMayusculas(
+IN min VARCHAR(100),
+OUT may VARCHAR(100))
+BEGIN
+SELECT UCASE(min) INTO may;
+END
+
+//
+DELIMITER ;

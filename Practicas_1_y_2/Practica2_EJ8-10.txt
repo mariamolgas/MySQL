@@ -1,0 +1,41 @@
+mysql --default-character-set=utf8 -u root -p
+
+
+consulta 13
+ORDER BY 
+
+
+
+
+8. 
+	1-	SELECT * FROM ACTORES;
+	2- SELECT Actores.nombre from Actores, Peliculas, Actores_Peliculas WHERE (Actores_Peliculas.ID_pelicula=Peliculas.ID_pelicula AND Peliculas.nombre='Un monstruo viene a verme' and actores_peliculas.id_actor=actores.id_actor);
+	3-SELECT * FROM ACTORES WHERE (Actores.edad>50);
+	4-SELECT Peliculas.ID_pelicula, Peliculas.nombre, Peliculas.unicidad, Directores.nombre FROM Peliculas, Directores WHERE Peliculas.id_director=Directores.id_director;
+	5-select Directores.nombre,count(distinct ID_pelicula) from Peliculas,Directores WHERE Peliculas.ID_director=Directores.Id_director group by Directores.nombre;
+	6-SELECT distinct Actores.nombre from Actores WHERE (Actores.ID_actor not in(select Actores_Peliculas.id_actor from Actores_Peliculas));
+	7-select actores.nombre,directores.nombre from Actores, Directores, Peliculas, Actores_Peliculas where(Peliculas.id_director=Directores.id_director AND Actores_Peliculas.id_pelicula=Peliculas.id_pelicula AND Actores.id_actor=Actores_peliculas.id_actor)
+
+
+10. 
+	1- SELECT * FROM docente;
+	2- SELECT docente.nombre FROM docente,departamento WHERE (docente.nombre_dpto= departamento.nombre_dpto AND docente.nombre_dpto='Ingeniería Telemática');
+	3- SELECT docente.nombre FROM docente,departamento WHERE (docente.nombre_dpto= departamento.nombre_dpto AND docente.nombre_dpto='Ingeniería Telemática' AND docente.salario > 70000);
+	4- SELECT docente.nombre,docente.ID,docente.salario,docente.nombre_dpto,departamento.presupuesto,departamento.edificio FROM docente,departamento WHERE (docente.nombre_dpto= departamento.nombre_dpto);
+	5- select materia.nombre FROM materia WHERE(materia.nombre_dpto='Ingeniería Telemática' AND materia.creditos=3);
+	6- select materia.id_materia, materia.nombre FROM materia,cursa,alumno_3ciclo WHERE (alumno_3ciclo.ID=cursa.ID AND materia.id_materia=cursa.id_materia and alumno_3ciclo.ID='12345');
+	7-(SELECT docente.nombre FROM docente) UNION (SELECT alumno_3ciclo.nombre FROM alumno_3ciclo) ORDER BY(nombre);
+	8- (SELECT alumno_3ciclo.nombre, SUM(materia.creditos) FROM materia,cursa,alumno_3ciclo WHERE (alumno_3ciclo.ID=cursa.ID AND materia.id_materia=cursa.id_materia) GROUP BY alumno_3ciclo.nombre) UNION (SELECT docente.nombre,'0 creditos' FROM docente GROUP BY docente.nombre) ORDER BY (nombre);
+**	9-(SELECT alumno_3ciclo.ID, SUM(materia.creditos) FROM materia,cursa,alumno_3ciclo WHERE (alumno_3ciclo.ID=cursa.ID AND materia.id_materia=cursa.id_materia) GROUP BY alumno_3ciclo.nombre) UNION (SELECT docente.ID,'0 creditos' FROM docente GROUP BY docente.nombre) ORDER BY (ID);
+	10- SELECT alumno_3ciclo.nombre FROM materia,cursa,alumno_3ciclo WHERE(alumno_3ciclo.ID=cursa.ID and materia.id_materia=cursa.id_materia AND materia.nombre_dpto='Ingeniería Telemática') GROUP BY nombre;
+	11-SELECT docente.ID FROM docente,imparte,materia WHERE(docente.ID not in (select imparte.ID from imparte)) GROUP BY(docente.ID);
+	12-SELECT docente.nombre FROM docente,imparte,materia WHERE(docente.ID not in (select imparte.ID from imparte)) GROUP BY (docente.nombre); /*El GROUP BY es para eliminar duplicados*/
+13-SELECT grupo.id_materia,grupo.id_grupo, COUNT(distinct cursa.ID) FROM grupo,cursa,alumno_3ciclo WHERE( cursa.id_grupo=grupo.id_grupo AND cursa.id_materia=grupo.id_materia) GROUP BY (grupo.id_grupo AND grupo.id_materia);
+
+
+SELECT MIN(cursa.ID) FROM cursa WHERE COUNT(distinct cursa.ID) in (
+SELECT grupo.id_materia,grupo.id_grupo,grupo.cuatrimestre,grupo.anho, COUNT(distinct cursa.ID) FROM grupo,cursa,alumno_3ciclo WHERE( cursa.id_grupo=grupo.id_grupo AND cursa.id_materia=grupo.id_materia AND cursa.cuatrimestre=grupo.cuatrimestre AND cursa.anho=grupo.anho)) GROUP BY grupo.id_materia,grupo.id_grupo,grupo.cuatrimestre,grupo.anho;
+
+SELECT min(num_alumnos) FROM(
+	SELECT grupo.id_materia,grupo.id_grupo,grupo.cuatrimestre,grupo.anho, COUNT(distinct cursa.ID) as num_alumnos FROM grupo,cursa,alumno_3ciclo WHERE( cursa.id_grupo=grupo.id_grupo AND cursa.id_materia=grupo.id_materia AND cursa.cuatrimestre=grupo.cuatrimestre AND cursa.anho=grupo.anho) GROUP BY grupo.id_materia,grupo.id_grupo,grupo.cuatrimestre,grupo.anho);
+

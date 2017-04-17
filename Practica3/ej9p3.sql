@@ -1,0 +1,54 @@
+START TRANSACTION;
+
+
+INSERT INTO Actores (ID_actor,nombre,unicidad,edad,nacionalidad)	VALUES(9,'Maria','000000000',44,'Gallega'),(10,'Helena','010000000',42,'Gallega'),(11,'Xaime','010200000',41,'Gallega');
+UPDATE Directores SET nacionalidad='España' WHERE ID_director=1;
+UPDATE Actores SET nacionalidad='España' WHERE ID_actor=10;
+UPDATE Actores SET nacionalidad='España' WHERE ID_actor=9;
+UPDATE Actores SET nacionalidad='España' WHERE ID_actor=11;
+UPDATE Actores SET nacionalidad='España' WHERE ID_actor=2;
+
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+SELECT * FROM Actores;
+
+COMMIT;

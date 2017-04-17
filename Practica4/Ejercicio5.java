@@ -1,0 +1,217 @@
+
+import java.sql.*;
+import java.io.*;
+
+class Ejercicio5{
+
+public static void main(String args[]){
+
+
+
+try{
+//step1 load the driver class
+Class.forName("com.mysql.jdbc.Driver");
+
+//step2 create  the connection object
+
+Connection con=DriverManager.getConnection(
+"jdbc:mysql://localhost:3306/misPeliculas","mariamolgas","molgas2");
+
+//step3 create the statement object
+Statement stmt=con.createStatement();
+
+//step4 execute query
+int ra=stmt.executeUpdate("Drop TABLE Actores_Peliculas");
+ra=stmt.executeUpdate("Drop TABLE Actores");
+ra=stmt.executeUpdate("Drop TABLE Peliculas");
+
+ra=stmt.executeUpdate("Drop TABLE Directores");
+
+
+ ra=stmt.executeUpdate("create table if not exists Actores(ID_actor INT,nombre VARCHAR(100) NOT NULL,PRIMARY KEY (ID_actor),unicidad VARCHAR(9) NOT NULL,	UNIQUE (unicidad),edad INT NOT NULL, CONSTRAINT chk CHECK (edad>0 AND edad<120),nacionalidad VARCHAR(100) NOT NULL	)");
+ra=stmt.executeUpdate("CREATE TABLE if not exists Directores(ID_director INT,	nombre VARCHAR(100) NOT NULL, PRIMARY KEY (ID_director),unicidad VARCHAR(9) NOT NULL,	UNIQUE (unicidad),edad INT NOT NULL,CONSTRAINT chk CHECK (edad>0 AND edad<120),	nacionalidad VARCHAR(100) NOT NULL);");
+ra=stmt.executeUpdate("CREATE TABLE if not exists Peliculas(ID_pelicula INT,nombre VARCHAR(100) NOT NULL,	ID_director INT,unicidad VARCHAR(9) NOT NULL,	UNIQUE (unicidad),PRIMARY KEY (ID_pelicula),FOREIGN KEY(ID_director) REFERENCES Directores(ID_director),nacionalidad VARCHAR(100) NOT NULL);");
+ra=stmt.executeUpdate("CREATE TABLE if not exists Actores_Peliculas(ID_pelicula INT,ID_actor INT,	CONSTRAINT pk_actor FOREIGN KEY(ID_actor) REFERENCES Actores(ID_actor),	CONSTRAINT pk_peli FOREIGN KEY(ID_pelicula) REFERENCES Peliculas(ID_pelicula),CONSTRAINT pk PRIMARY KEY(ID_pelicula,ID_actor));");
+
+ ra=stmt.executeUpdate("INSERT INTO Actores (ID_actor,nombre,unicidad,edad,nacionalidad)	VALUES(1,'Brad Pitt','123456789',45,'España'),(2,'Leonardo Diccaprio','987654321',55,'Inglaterra'),	(3,'Angelina Jolie','111111111',67,'España'),	(4,'Penelope Cruz','222222222',33,'Francia'),	(5,'Emma Watson','333333333',12,'Inglaterra');");
+ra=stmt.executeUpdate("INSERT INTO Directores(ID_director,nombre,unicidad,edad,nacionalidad) VALUES(1,'Almodovar','333333333',44,'España'),	(2,'Alberto Rodriguez','222222222',34,'Inglaterra'),(3,'Bayona','111111111',22,'España'),(4,'Sorogoyen','987654321',43,'España'),	(5,'Spielberg','123456789',55,'Francia');");
+ra=stmt.executeUpdate("INSERT INTO Peliculas(ID_pelicula,nombre,unicidad,ID_director,nacionalidad)	VALUES	(1,'Un monstruo viene a verme','123456789',2,'Inglaterra'),	(2,'3MSC','987654321',1,'Francia'),	(3,'El diario de Noah','111111111',2,'España'),	(4,'La isla minima','222222222',4,'Inglaterra'),(5,'Infiltrados','333333333',5,'España');");
+ra=stmt.executeUpdate("INSERT INTO Actores_Peliculas(ID_pelicula,ID_actor)VALUES(1,2),(1,3),(1,4),(4,1),(3,1);");
+/*ResultSet rs=stmt.executeQuery("select * from Actores");
+while(rs.next())
+System.out.println(rs.getInt(1)+"  "+rs.getString(2)+"  "+rs.getString(3));
+*/
+//step5 close the connection object
+
+while(1==1){
+System.out.println("Que desea introducir?");
+System.out.println("1. Nuevo actor");
+System.out.println("2. Nuevo director");
+System.out.println("3. Nueva pelicula");
+System.out.println("4. Relacion actor-pelicula");
+System.out.println("5. Salir");
+
+
+String option=new String();
+String numero=new String();
+String nombre=new String();
+String unicidad=new String();
+String nacionalidad=new String();
+int id=0;
+int edad=0;
+
+
+  try{
+      BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+      option = bufferRead.readLine();
+  }
+  catch(IOException e)
+  {
+      e.printStackTrace();
+  }
+
+switch(option){
+case "1":
+System.out.println("Id:");
+try{
+    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    numero = bufferRead.readLine();
+    id= Integer.parseInt(numero);
+}
+catch(IOException e){ e.printStackTrace();}
+System.out.println("Nombre:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    nombre = bufferRead.readLine();
+}
+catch(IOException e){ e.printStackTrace();}
+
+System.out.println("Unicidad:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    unicidad = bufferRead.readLine();
+}
+catch(IOException e){ e.printStackTrace();}
+System.out.println("Edad:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    numero = bufferRead.readLine();
+    edad= Integer.parseInt(numero);
+}
+catch(IOException e){ e.printStackTrace();}
+System.out.println("Nacionalidad:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    nacionalidad = bufferRead.readLine();
+}
+catch(IOException e){ e.printStackTrace();}
+ra=stmt.executeUpdate("INSERT INTO Actores (ID_actor,nombre,unicidad,edad,nacionalidad)	VALUES("+id+",'"+nombre+"','"+unicidad+"',"+edad+",'"+nacionalidad+"')");
+
+break;
+
+
+case "2":
+System.out.println("Id:");
+try{
+    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    numero = bufferRead.readLine();
+    id= Integer.parseInt(numero);
+}
+catch(IOException e){ e.printStackTrace();}
+System.out.println("Nombre:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    nombre = bufferRead.readLine();
+}
+catch(IOException e){ e.printStackTrace();}
+
+System.out.println("Unicidad:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    unicidad = bufferRead.readLine();
+}
+catch(IOException e){ e.printStackTrace();}
+System.out.println("Edad:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    numero = bufferRead.readLine();
+    edad= Integer.parseInt(numero);
+}
+catch(IOException e){ e.printStackTrace();}
+System.out.println("Nacionalidad:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    nacionalidad = bufferRead.readLine();
+}
+catch(IOException e){ e.printStackTrace();}
+ra=stmt.executeUpdate("INSERT INTO Directores (ID_director,nombre,unicidad,edad,nacionalidad)	VALUES("+id+",'"+nombre+"','"+unicidad+"',"+edad+",'"+nacionalidad+"')");
+
+break;
+
+case "3":
+System.out.println("Id:");
+try{
+    BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    numero = bufferRead.readLine();
+    id= Integer.parseInt(numero);
+}
+catch(IOException e){ e.printStackTrace();}
+System.out.println("Nombre:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    nombre = bufferRead.readLine();
+}
+catch(IOException e){ e.printStackTrace();}
+
+System.out.println("Unicidad:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    unicidad = bufferRead.readLine();
+}
+catch(IOException e){ e.printStackTrace();}
+System.out.println("Id director:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    numero = bufferRead.readLine();
+    edad= Integer.parseInt(numero);
+}
+catch(IOException e){ e.printStackTrace();}
+System.out.println("Nacionalidad:");
+
+try{
+  BufferedReader bufferRead = new BufferedReader(new InputStreamReader(System.in));
+    nacionalidad = bufferRead.readLine();
+}
+catch(IOException e){ e.printStackTrace();}
+ra=stmt.executeUpdate("INSERT INTO Peliculas (ID_pelicula,nombre,unicidad,ID_director,nacionalidad)	VALUES("+id+",'"+nombre+"','"+unicidad+"',"+edad+",'"+nacionalidad+"')");
+
+break;
+
+
+
+case "5":
+con.close();
+return;
+
+}
+
+}
+
+
+}
+catch(SQLException ex){System.out.println("ERROR SQL:   \n" + ex);}
+catch(Exception e){ System.out.println(e);}
+
+}
+}

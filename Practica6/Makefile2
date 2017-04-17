@@ -1,0 +1,2 @@
+rm database2.db4o
+javac  Peliculas.java Actores.java Directores.java database2.java 

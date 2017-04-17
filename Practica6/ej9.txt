@@ -1,0 +1,5 @@
+1./BDemprea/departamentos/departmento
+2./BDempresa/empleados/empleado[nombre="Juan"]
+3./BDempresa/empleados/empleado[salario>40000]
+4./BDempresa/empleados/empleado[contains(direccion,"Malaga")]
+5./BDempresa/empleados/empleado[contains(/BDempresa/departamentos/departmento[dnombre="Hardware"]/empleados/@ednis,@dni) and  familiares/familiar[sexo="F"] and sexo["M"]] 
